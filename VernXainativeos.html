@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VernX - AI-Powered Banking for Indian Startups</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+            background: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .slide {
+            display: none;
+            padding: 60px 80px;
+            min-height: 100vh;
+            position: relative;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide h1 {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .slide h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .slide h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #34495e;
+            font-weight: 500;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .problem-item {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .solution-item {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid #27ae60;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 0 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            position: relative;
+        }
+
+        .revenue-chart {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .team-member {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #7f8c8d;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="logo">VernX</div>
+            <div class="subtitle">AI-Powered Digital Banking for Solo Founders to Series B+ Teams</div>
+            <div class="highlight">
+                <h3>Building India's first AI-native financial operating system that cuts fragmented tooling</h3>
+                <p>One platform for all financial operations - from Day 0 solo founders to Series B+ teams</p>
+            </div>
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-number">$100K</div>
+                    <div class="metric-label">Seeking Pre-Seed</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">180K+</div>
+                    <div class="metric-label">Target Startups</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">₹7.2B</div>
+                    <div class="metric-label">Market Size</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Problem -->
+        <div class="slide">
+            <h2>The Problem: Fragmented Financial Chaos</h2>
+            <div class="highlight">
+                <p>From solo founders to Series B+ teams - everyone struggles with fragmented financial tooling and manual processes</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-item">
+                    <h3>Tool Fragmentation Crisis</h3>
+                    <p>Razorpay → Karbon → Enkash → Volopay → Zoho → Open → Excel → WhatsApp CA</p>
+                    <p>No unified cash flow view, constant context switching</p>
+                </div>
+                <div class="problem-item">
+                    <h3>Expensive Human Dependencies</h3>
+                    <p>₹15-25K/month for CAs, ₹50K+ for part-time CFOs</p>
+                    <p>Most tasks are repetitive and should be automated</p>
+                </div>
+                <div class="problem-item">
+                    <h3>Enterprise-Heavy Solutions</h3>
+                    <p>Existing players built for Series A+ companies</p>
+                    <p>Complex APIs, zero support for sub-₹10L revenue companies</p>
+                </div>
+                <div class="problem-item">
+                    <h3>No AI-Driven Insights</h3>
+                    <p>Manual expense tracking, no burn rate analysis</p>
+                    <p>Founders fly blind on critical financial metrics</p>
+                </div>
+            </div>
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-number">85%</div>
+                    <div class="metric-label">Use 5+ Tools</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">8-12</div>
+                    <div class="metric-label">Hours/Week on Finance</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">70%</div>
+                    <div class="metric-label">Missed Payments</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Solution -->
+        <div class="slide">
+            <h2>The Solution: VernX Financial OS</h2>
+            <div class="highlight">
+                <p>An AI-native platform that cuts fragmented tooling - serving solo founders to Series B+ teams with one unified financial OS</p>
+            </div>
+            <div class="solution-grid">
+                <div class="solution-item">
+                    <h3>AI-Powered Financial Assistant</h3>
+                    <p>Real-time burn rate analysis, automated expense categorization, proactive cash flow alerts</p>
+                    <p>Replaces need for part-time CA/CFO</p>
+                </div>
+                <div class="solution-item">
+                    <h3>Unified Financial Infrastructure</h3>
+                    <p>Virtual current accounts, smart corporate cards, automated payments, GST compliance</p>
+                    <p>Integration with Tally, Zoho, Google Sheets</p>
+                </div>
+                <div class="solution-item">
+                    <h3>Founder-First Experience</h3>
+                    <p>Clean, intuitive UI for non-finance founders</p>
+                    <p>Mobile-first, one-click operations, contextual help</p>
+                </div>
+                <div class="solution-item">
+                    <h3>Complete Financial Ecosystem</h3>
+                    <p>Credit lines, working capital loans, revenue-based financing</p>
+                    <p>Venture debt facilitation and management</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Market Opportunity -->
+        <div class="slide">
+            <h2>Massive Market Opportunity</h2>
+            <div class="highlight">
+                <p>Targeting 180,000+ underserved startups across India, Southeast Asia, and Middle East</p>
+            </div>
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-number">100K+</div>
+                    <div class="metric-label">Indian Startups Annually</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">40K+</div>
+                    <div class="metric-label">Southeast Asia Startups</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">15K+</div>
+                    <div class="metric-label">Middle East Startups</div>
+                </div>
+            </div>
+            <div class="revenue-chart">
+                <h3>Market Size Calculation</h3>
+                <p><strong>180,000+ target companies × ₹40,000 annual spend = ₹7.2B addressable market</strong></p>
+                <p>Conservative 0.5% market share = ₹36 crore annual revenue potential</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Phase 1: India Focus (Years 1-2)</h3>
+                    <p>Build product-market fit, establish founder network</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Phase 2: Southeast Asia (Years 2-3)</h3>
+                    <p>Singapore, Indonesia, Thailand expansion</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Phase 3: Middle East (Years 3-4)</h3>
+                    <p>UAE, Saudi Arabia, Qatar market entry</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Business Model -->
+        <div class="slide">
+            <h2>Scalable Business Model</h2>
+            <div class="highlight">
+                <p>Multiple revenue streams with healthy unit economics that grow with customer success</p>
+            </div>
+            <div class="solution-grid">
+                <div class="solution-item">
+                    <h3>Freemium Model</h3>
+                    <p>Free tier for Day 0 founders, converts to paid as they grow</p>
+                    <p>Viral growth through founder networks</p>
+                </div>
+                <div class="solution-item">
+                    <h3>SaaS Subscriptions</h3>
+                    <p>Starter: ₹1,999/month | Growth: ₹6,999/month | Scale: ₹15,999/month</p>
+                    <p>Features unlock with company growth</p>
+                </div>
+                <div class="solution-item">
+                    <h3>Transaction Fees</h3>
+                    <p>0.3% on vendor payments and salary disbursals</p>
+                    <p>Higher volumes = more revenue</p>
+                </div>
+                <div class="solution-item">
+                    <h3>Financial Services</h3>
+                    <p>Credit lines, working capital loans, venture debt</p>
+                    <p>Commission-based revenue from partners</p>
+                </div>
+            </div>
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-number">₹3,000</div>
+                    <div class="metric-label">Blended CAC</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">₹180,000</div>
+                    <div class="metric-label">Customer LTV</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">60:1</div>
+                    <div class="metric-label">LTV:CAC Ratio</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Traction & Validation -->
+        <div class="slide">
+            <h2>Strong Market Validation</h2>
+            <div class="highlight">
+                <p>Extensive founder research confirms universal pain points and product demand</p>
+            </div>
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-number">50+</div>
+                    <div class="metric-label">Founder Interviews</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">85%</div>
+                    <div class="metric-label">Use 5+ Tools</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">70%</div>
+                    <div class="metric-label">Missed Payments</div>
+                </div>
+            </div>
+            <div class="solution-grid">
+                <div class="solution-item">
+                    <h3>Go-to-Market Strategy</h3>
+                    <p><strong>Phase 1:</strong> Accelerator partnerships (100X.VC, Antler, T-Hub)</p>
+                    <p><strong>Phase 2:</strong> VC portfolio access (Blume, Sequoia, Accel)</p>
+                    <p><strong>Phase 3:</strong> Direct founder outreach and content marketing</p>
+                </div>
+                <div class="solution-item">
+                    <h3>Competitive Advantage</h3>
+                    <p>First-mover in AI-powered financial assistance</p>
+                    <p>Purpose-built for Day 0 founders vs enterprise solutions</p>
+                    <p>Founder-first UX vs developer-centric APIs</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Financial Projections -->
+        <div class="slide">
+            <h2>Conservative Financial Projections</h2>
+            <div class="revenue-chart">
+                <h3>3-Year Revenue Growth</h3>
+                <div class="metrics">
+                    <div class="metric-card">
+                        <div class="metric-number">₹1.05Cr</div>
+                        <div class="metric-label">Year 1 Revenue</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">₹4Cr</div>
+                        <div class="metric-label">Year 2 Revenue</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">₹9.75Cr</div>
+                        <div class="metric-label">Year 3 Revenue</div>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Year 1: Product-Market Fit</h3>
+                    <p>300 customers × ₹35,000 average = ₹1.05 crore</p>
+                    <p>20% month-over-month growth</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Year 2: Scale & Expansion</h3>
+                    <p>800 customers × ₹50,000 average = ₹4 crore</p>
+                    <p>Begin Southeast Asia expansion</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Year 3: Multi-Market Presence</h3>
+                    <p>1,500 customers × ₹65,000 average = ₹9.75 crore</p>
+                    <p>Established in 2-3 markets</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Team -->
+        <div class="slide">
+            <h2>Founding Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <h3>V Vinayak</h3>
+                    <p><strong>Founder & CEO</strong></p>
+                    <p>Previously at Intuit working as a data analyst/scientist</p>
+                </div>
+                <div class="team-member">
+                    <h3>Prajwal</h3>
+                    <p><strong>Co-founder, Operations</strong></p>
+                    <p>Marketing and operations expertise</p>
+                    <p>UI/UX design background</p>
+                    <p>Frontend engineer building intuitive UI</p>
+                </div>
+            </div>
+            <div class="highlight">
+                <h3>Immediate Hiring Plan</h3>
+                <p>One full-stack engineer and one sales manager</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Funding & Use of Funds -->
+        <div class="slide">
+            <h2>Funding Requirements</h2>
+            <div class="highlight">
+                <h3>Current Round: $100,000</h3>
+                <p>Building MVP and onboarding first 100 customers</p>
+            </div>
+            <div class="solution-grid">
+                <div class="solution-item">
+                    <h3>Product Development (50%)</h3>
+                    <p>₹25 lakh for core development team</p>
+                    <p>AI/ML infrastructure development</p>
+                    <p>Core banking module completion</p>
+                </div>
+                <div class="solution-item">
+                    <h3>Technology Infrastructure (25%)</h3>
+                    <p>₹12.5 lakh for BaaS API integrations</p>
+                    <p>Security and compliance setup</p>
+                    <p>Scalable cloud infrastructure</p>
+                </div>
+                <div class="solution-item">
+                    <h3>Go-to-Market (20%)</h3>
+                    <p>₹10 lakh for accelerator partnerships</p>
+                    <p>Marketing campaigns and content</p>
+                    <p>Customer acquisition and onboarding</p>
+                </div>
+                <div class="solution-item">
+                    <h3>Working Capital (5%)</h3>
+                    <p>₹2.5 lakh for legal and compliance</p>
+                    <p>Office setup and operations</p>
+                    <p>Contingency and unforeseen costs</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Investment Highlights -->
+        <div class="slide">
+            <h2>Investment Highlights</h2>
+            <div class="solution-grid">
+                <div class="solution-item">
+                    <h3>Large Underserved Market</h3>
+                    <p>180,000+ startups lacking proper financial infrastructure</p>
+                    <p>AI-powered automation addresses fundamental pain points</p>
+                </div>
+                <div class="solution-item">
+                    <h3>Healthy Unit Economics</h3>
+                    <p>60:1 LTV:CAC ratio with conservative estimates</p>
+                    <p>Multiple revenue streams with strong margins</p>
+                </div>
+                <div class="solution-item">
+                    <h3>Defensible Position</h3>
+                    <p>First-mover advantage in AI-native financial OS</p>
+                    <p>Network effects and data advantages</p>
+                </div>
+                <div class="solution-item">
+                    <h3>Return Potential</h3>
+                    <p>Base case: 70x return on investment</p>
+                    <p>Upside case: 185x return with regional expansion</p>
+                </div>
+            </div>
+            <div class="revenue-chart">
+                <h3>Conservative Return Scenario</h3>
+                <p><strong>₹22 crore annual revenue by Year 3</strong></p>
+                <p>25% EBITDA margins = ₹5.5 crore profit</p>
+                <p>8x revenue multiple = ₹176 crore valuation</p>
+                <p><strong>28x return on $100K investment</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Contact -->
+        <div class="slide">
+            <h2>Let's Build the Future of Startup Finance</h2>
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p><strong>V Vinayak</strong> - Founder & CEO</p>
+                <p>Email: vinayakvk170@gmail.com</p>
+                <p>Phone: +91 9844147317</p>
+                <p>Location: Bangalore, India</p>
+            </div>
+            <div class="highlight">
+                <h3>Next Steps</h3>
+                <p>Close $100K angel round and begin MVP development</p>
+                <p>Onboard first 100 customers through accelerator partnerships</p>
+                <p>Scale across India, Southeast Asia, and Middle East</p>
+            </div>
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-number">MVP</div>
+                    <div class="metric-label">4 Months</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">100</div>
+                    <div class="metric-label">First Customers</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">3</div>
+                    <div class="metric-label">Target Markets</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">11</span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">Previous</button>
+        <button class="nav-btn" onclick="nextSlide()">Next</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 11;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            
+            if (n > totalSlides) currentSlide = 1;
+            if (n < 1) currentSlide = totalSlides;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide;
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Initialize
+        document.getElementById('total-slides').textContent = totalSlides;
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
